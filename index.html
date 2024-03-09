@@ -6,22 +6,67 @@
   <script id="challenge">
     // 👉 CHALLENGE 1
     function profileActivation(profile, reason) {
-
+      console.log(profile, reason)
+      if (profile.active && !reason) {
+        return 'confirm status manually'
+      }
+      if (profile.active) {
+        profile.active = false
+        profile.reason = reason
+      } else {
+        profile.active = true
+        delete profile.reason
+      }
+      return profile
     }
 
     // 👉 CHALLENGE 2
     function mineSweeper(grid, x, y) {
+      x = x - 1
+      y = y - 1
 
+      if (x < 0 || x > 2 || y < 0 || y > 2) {
+        return 'invalid coordinates'
+      }
+      if (grid[y][x] === "🟥") {
+        return "🟥 💀";
+      } else if (grid[y][x] === "🟦") {
+        return "🟦 🥳";
+      }
     }
 
     // 👉 CHALLENGE 3
     function booleanize(obj) {
-
+      for (let key in obj) {
+        if (key.length > 9) {
+          return 'shorten all prop names to 9 chars or less';
+        }
+        let value = obj[key];
+        if (value === 0) {
+          obj[key] = false;
+        } else if (value === 1) {
+          obj[key] = true;
+        } else if (value === null) {
+          delete obj[key];
+        }
+      }
+      return obj
     }
+
 
     // 👉 CHALLENGE 4
     function scrub(text, forbidden) {
-
+      let words = text.split(" ")
+      for (let i = 0; i < words.length; i++) {
+        if (forbidden.indexOf(words[i]) !== -1) {
+          let replace = ''
+          for (let a = 0; a < words[i].length; a++) {
+            replace += 'x'
+          }
+          words[i] = replace
+        }
+      }
+      return words.join(' ')
     }
 
     // 👉 CHALLENGE 5 (bonus, NOT graded)
